@@ -2,6 +2,7 @@ package vi_generics
 
 import util.TODO
 import java.util.*
+import kotlin.collections.ArrayList
 
 fun task41(): Nothing = TODO(
     """
@@ -19,12 +20,25 @@ fun task41(): Nothing = TODO(
         }
 )
 
+fun <T, C: MutableCollection<T>> Collection<T>.partitionTo(list1: C, list2: C, predicate: (T) -> Boolean): Pair<C, C>{
+    for (element in this){
+        if(predicate(element)){
+            list1.add(element)
+        } else {
+            list2.add(element)
+        }
+
+    }
+    return Pair(list1, list2)
+
+}
+
 fun List<String>.partitionWordsAndLines(): Pair<List<String>, List<String>> {
-    task41()
-//    return partitionTo(ArrayList<String>(), ArrayList()) { s -> !s.contains(" ") }
+
+    return partitionTo(ArrayList<String>(), ArrayList()) { s -> !s.contains(" ") }
 }
 
 fun Set<Char>.partitionLettersAndOtherSymbols(): Pair<Set<Char>, Set<Char>> {
-    task41()
-//    return partitionTo(HashSet<Char>(), HashSet()) { c -> c in 'a'..'z' || c in 'A'..'Z'}
+
+    return partitionTo(HashSet<Char>(), HashSet()) { c -> c in 'a'..'z' || c in 'A'..'Z'}
 }
